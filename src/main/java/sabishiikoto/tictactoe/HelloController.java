@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -19,6 +20,9 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class HelloController {
+
+    @FXML
+    private ToggleButton buttonForBotMode;
 
     @FXML
     private GridPane gridPaneForMatch;
@@ -57,7 +61,7 @@ public class HelloController {
     private static String O = "";
     private static int counts = 0;
     private static boolean win = false;
-    private static boolean bot = true;
+    private static boolean bot = false;
     private static String gridPaneColor = "";
 
 
@@ -65,9 +69,9 @@ public class HelloController {
     void aboutTrigger(ActionEvent event) {
         // Set the about's alert info
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("About This Tic-Tac-Toe!");
+        alert.setTitle("About This Tic-Tac-Toe Game!");
         alert.setHeaderText("Information and Contact");
-        alert.setContentText("Hi, I hope you enjoy this game.\nFor my contact, check out my GitHub:\nhttps://github.com/SabishiiKoto");
+        alert.setContentText("Hi, I hope you enjoy this game version of mine.\nFor my contact, check out my GitHub:\nhttps://github.com/SabishiiKoto");
         // Set the about's alert graphic
         Image image = new Image(getClass().getResource("/assets/Sabii's avatar.jpeg").toExternalForm());
         ImageView imageView = new ImageView(image);
@@ -79,6 +83,21 @@ public class HelloController {
     }
 
     @FXML
+    void botModeTrigger(ActionEvent event) {
+        bot = buttonForBotMode.isSelected();
+        if (bot){
+            labelForPlayer1.setText("You");
+            labelForPlayer2.setText("Bot");
+        }
+        else{
+            labelForPlayer1.setText("Player 1");
+            labelForPlayer2.setText("Player 2");
+        }
+        gridpaneMapping();
+    }
+
+
+    @FXML
     void blueColorTrigger(ActionEvent event) {
         menuBar.setStyle("-fx-background-color: #0196C1;");
         labelForTitle.setStyle("-fx-text-fill: #046C95;");
@@ -87,6 +106,7 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #046C95;");
         labelForPlayer2.setStyle("-fx-text-fill: #046C95;");
+        buttonForBotMode.setStyle("-fx-background-color: #B3E0EE;-fx-text-fill: #046C95;");
 
         oImage = new Image(getClass().getResource("/assets/oBlue.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xBlue.png").toExternalForm());
@@ -106,6 +126,7 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #DE978F;");
         labelForPlayer2.setStyle("-fx-text-fill: #DE978F;");
+        buttonForBotMode.setStyle("-fx-background-color: #564779;-fx-text-fill: #DE978F;");
 
         oImage = new Image(getClass().getResource("/assets/oDark.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xDark.png").toExternalForm());
@@ -124,6 +145,7 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #387271;");
         labelForPlayer2.setStyle("-fx-text-fill: #387271;");
+        buttonForBotMode.setStyle("-fx-background-color: #8EBCB1;-fx-text-fill: #387271;");
 
         oImage = new Image(getClass().getResource("/assets/oGreen.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xGreen.png").toExternalForm());
@@ -143,6 +165,8 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #DD868C;");
         labelForPlayer2.setStyle("-fx-text-fill: #DD868C;");
+        buttonForBotMode.setStyle("-fx-background-color: #F5DDE0; -fx-text-fill: #DD868C;");
+
         oImage = new Image(getClass().getResource("/assets/oPink.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xPink.png").toExternalForm());
 
@@ -160,6 +184,7 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #F28482;");
         labelForPlayer2.setStyle("-fx-text-fill: #F28482;");
+        buttonForBotMode.setStyle("-fx-background-color: #F7EDE2; -fx-text-fill: #F28482;");
 
         oImage = new Image(getClass().getResource("/assets/oVintage.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xVintage.png").toExternalForm());
@@ -292,15 +317,6 @@ public class HelloController {
             } else if (level == 5) {
                 size = 40;
             }
-            if ((turn == 1 && player == 1) || (turn == 2 && player == 2)) {
-                O = "You";
-                X = "Bot";
-            } else if ((turn == 1 && player == 2) || (turn == 2 && player == 1)) {
-                X = "You";
-                O = "Bot";
-            }
-            labelForPlayer1.setText("You");
-            labelForPlayer2.setText("Bot");
             if (player == 1) {
                 imageViewForPlayer1.setImage(tempImage);
                 imageViewForPlayer2.setImage(null);
@@ -431,7 +447,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'o', length)) {
                             win = true;
-                            labelForTitle.setText(String.format("%s's winning!!!", O));
+                            labelForTitle.setText("Your winning!");
                             labelForError.setText("Congratulation!");
                         } else if (Functions.inGame(map)){
                             counts++;
@@ -454,8 +470,8 @@ public class HelloController {
 
                                 if (Functions.win(map, 'x', length)) {
                                     win = true;
-                                    labelForTitle.setText(String.format("%s's winning!!!", X));
-                                    labelForError.setText("Congratulation!");
+                                    labelForTitle.setText("Bot's winning!");
+                                    labelForError.setText("LMAO!");
                                 } else if (Functions.inGame(map)){
                                     imageViewForPlayer1.setImage(oImage);
                                     imageViewForPlayer2.setImage(null);
@@ -483,7 +499,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'x', length)) {
                             win = true;
-                            labelForTitle.setText(String.format("%s's winning!!!", X));
+                            labelForTitle.setText("Your winning!");
                             labelForError.setText("Congratulation!");
                         } else if (Functions.inGame(map)){
                             counts++;
@@ -507,8 +523,8 @@ public class HelloController {
 
                                 if (Functions.win(map, 'o', length)) {
                                     win = true;
-                                    labelForTitle.setText(String.format("%s's winning!!!", O));
-                                    labelForError.setText("Congratulation!");
+                                    labelForTitle.setText("Bot's winning!");
+                                    labelForError.setText("LMAO!");
                                 } else if (Functions.inGame(map)){
                                     imageViewForPlayer1.setImage(xImage);
                                     imageViewForPlayer2.setImage(null);
@@ -549,13 +565,15 @@ public class HelloController {
 
         labelForPlayer1.setStyle("-fx-text-fill: #F28482;");
         labelForPlayer2.setStyle("-fx-text-fill: #F28482;");
+        buttonForBotMode.setStyle("-fx-background-color: #F7EDE2; -fx-text-fill: #F28482;");
 
         oImage = new Image(getClass().getResource("/assets/oVintage.png").toExternalForm());
         xImage = new Image(getClass().getResource("/assets/xVintage.png").toExternalForm());
 
+        gridPaneColor = "#F7EDE2";
+
         level = 3;
         length = 3;
-        gridPaneColor = "#F7EDE2";
         gridpaneMapping();
 
         labelForError.setText("Hello! To win this level, get 3 identical images in a row/column/slope.");

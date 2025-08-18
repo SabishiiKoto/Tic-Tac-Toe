@@ -120,10 +120,7 @@ public class Functions {
     public static int[] randomLocation(char[][] map){
         Random random = new Random();
         ArrayList<int[]> list = mapToListForRandom(map);
-        if (list.isEmpty()){
-            return null;
-        }
-        else if (list.size() == 1){
+        if (list.size() == 1){
             return list.getFirst();
         }
         else {
