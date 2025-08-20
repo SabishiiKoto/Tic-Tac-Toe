@@ -88,10 +88,12 @@ public class HelloController {
         if (bot){
             labelForPlayer1.setText("You");
             labelForPlayer2.setText("Bot");
+            buttonForBotMode.setText("BOT MODE");
         }
         else{
             labelForPlayer1.setText("Player 1");
             labelForPlayer2.setText("Player 2");
+            buttonForBotMode.setText("PLAYER MODE");
         }
         gridpaneMapping();
     }
@@ -388,7 +390,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'o', length)) {
                             win = true;
-                            labelForTitle.setText(String.format("%s's winning!!!", O));
+                            labelForTitle.setText(String.format("%s's victory!!!", O));
                             labelForError.setText("Congratulation!");
                         } else {
                             // change to other player turn
@@ -414,7 +416,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'x', length)) {
                             win = true;
-                            labelForTitle.setText(String.format("%s's winning!!!", X));
+                            labelForTitle.setText(String.format("%s's victory!!!", X));
                             labelForError.setText("Congratulation!");
                         } else {
                             // change to other player turn
@@ -447,7 +449,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'o', length)) {
                             win = true;
-                            labelForTitle.setText("Your winning!");
+                            labelForTitle.setText("Your victory!");
                             labelForError.setText("Congratulation!");
                         } else if (Functions.inGame(map)){
                             counts++;
@@ -470,7 +472,7 @@ public class HelloController {
 
                                 if (Functions.win(map, 'x', length)) {
                                     win = true;
-                                    labelForTitle.setText("Bot's winning!");
+                                    labelForTitle.setText("Bot's victory!");
                                     labelForError.setText("LMAO!");
                                 } else if (Functions.inGame(map)){
                                     imageViewForPlayer1.setImage(oImage);
@@ -499,7 +501,7 @@ public class HelloController {
                         // Check if win
                         if (Functions.win(map, 'x', length)) {
                             win = true;
-                            labelForTitle.setText("Your winning!");
+                            labelForTitle.setText("Your victory!");
                             labelForError.setText("Congratulation!");
                         } else if (Functions.inGame(map)){
                             counts++;
@@ -523,7 +525,7 @@ public class HelloController {
 
                                 if (Functions.win(map, 'o', length)) {
                                     win = true;
-                                    labelForTitle.setText("Bot's winning!");
+                                    labelForTitle.setText("Bot's victory!");
                                     labelForError.setText("LMAO!");
                                 } else if (Functions.inGame(map)){
                                     imageViewForPlayer1.setImage(xImage);

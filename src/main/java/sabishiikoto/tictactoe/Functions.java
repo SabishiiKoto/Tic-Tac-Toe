@@ -16,17 +16,22 @@ public class Functions {
     }
     // Check horizontal line of the map
     public static boolean horizontalWin(char[][] map, char letter, int length){
-
-        for (int row = 0; row < map.length; row++){
+        int len = map.length;
+        int limit = len - length; // Set the limit so that if the column passes the limit and count is still 0, it moves to the next row.
+        for (int row = 0; row < len; row++){
             int count = 0;
-            for (int column = 0; column < map.length; column++){
+            for (int column = 0; column < len; column++){
                 if (map[row][column] == letter){
                     count++;
                 }
                 else{
                     count = 0;
                 }
-                if (count == length){
+                if (column == limit && count == 0){
+                    break;
+                }
+                else if (count == length){
+                    System.out.println("row");
                     return true;
                 }
             }
@@ -36,6 +41,8 @@ public class Functions {
     }
     // Check the vertical line of the map
     public static boolean verticalWin(char[][] map, char letter, int length){
+        int len = map.length;
+        int limit = len - length; // Set the limit so that if the row passes the limit and count is still 0, it moves to the next column.
         for (int column = 0; column < map.length; column ++){
             int count = 0;
             for (int row = 0; row < map.length; row ++){
@@ -45,7 +52,11 @@ public class Functions {
                 else{
                     count = 0;
                 }
-                if (count == length){
+                if (row == limit && count == 0){
+                    break;
+                }
+                else if (count == length){
+                    System.out.println("Column");
                     return true;
                 }
             }
@@ -55,33 +66,115 @@ public class Functions {
 
     // Check the slope of the map
     public static boolean upwardSlopeWin(char[][] map, char letter, int length) {
+        int len = map.length;
+        int loop = len - length + 1;
         int count = 0;
-        for (int row = map.length - 1, column = 0; row >= 0 && column < map.length; row --, column++){
-            if (map[row][column] == letter){
-                count++;
+        int[][] list = new int[loop*2 - 1][2];
+
+        // Create a list of starting point (row, column) to check later
+        for (int i = 0; i < loop; i++){
+            int row = i;
+            int column = (len - 1) - i;
+            if (row == 0 && column == len - 1){
+                int[] tempList = {row,column};
+                list[count] = tempList;
             }
             else{
-                count = 0;
+                int[] tempList = {0,column};
+                list[count] = tempList.clone();
+                count++;
+                tempList[0] = row;
+                tempList[1] = len - 1;
+                list[count] = tempList.clone();
             }
-            if (count == length){
-                return true;
+            count++;
+        }
+        // Loop through each starting point
+        for (int[] smallList : list){
+            count = 0;
+            int limit;
+            int row = smallList[0];
+            int column = smallList[1];
+            if (row >= column){
+                limit = len - row - length; // Set a limit so when it passes through this limit and count is still 0, it moves to the next starting point.
             }
+            else{
+                limit = len - column - length;
+            }
+            // Loop through the slope
+            for (row = smallList[0], column = smallList[1]; row < len && column >= 0; row++, column--) {
+                if (map[row][column] == letter) {
+                    count++;
+                }
+                if(column <= row){
+                    if (column == limit && count == 0) {
+                        break;
+                    }
+                }
+                else{
+                    if (row == limit && count == 0) {
+                        break;
+                    }
+                }
+                if (count == length) {
+                    return true;
+                }
+            }
+
         }
         return false;
 
     }
     public static boolean downwardSlopeWin(char[][] map, char letter, int length){
+        int len = map.length;
+        int loop = len - length + 1;
         int count = 0;
-        for (int i = 0; i < map.length; i++) {
-            if (map[i][i] == letter) {
-                count++;
+        int[][] list = new int[loop*2 - 1][2];
+        for (int i = 0; i < loop; i++){
+            if (i == 0){
+                int[] tempList = {i,i};
+                list[count] = tempList;
             }
             else{
-                count = 0;
+                int[] tempList = {0,i};
+                list[count] = tempList.clone();
+                count++;
+                tempList[0] = i;
+                tempList[1] = 0;
+                list[count] = tempList.clone();
             }
-            if (count == length){
-                return true;
+            count++;
+        }
+        for (int[] smallList : list){
+            count = 0;
+            int limit;
+            int row = smallList[0];
+            int column = smallList[1];
+            if (row >= column){
+                limit = len - row - length;
             }
+            else{
+                limit = len - column - length;
+            }
+            for (row = smallList[0], column = smallList[1]; row < len && column < len; row++, column++) {
+                if (map[row][column] == letter) {
+                    count++;
+                }
+                if(column <= row){
+                    if (column == limit && count == 0) {
+                        break;
+                    }
+                }
+                else{
+                    if (row == limit && count == 0) {
+                        break;
+                    }
+                }
+                if (count == length) {
+                    return true;
+                }
+            }
+
         }
         return false;
     }
