@@ -221,4 +221,24 @@ public class Functions {
             return list.get(index);
         }
     }
+    public static int[] blockingPlayer(char[][] map, char letter, int length){
+        int len = map.length;
+        if (verticalWin(map, letter, length)){
+            for (int column = 0; column < len; column++){
+
+            }
+        }
+        else if (horizontalWin(map, letter, length)){
+            for (int row = 0; row < len; row++){
+
+            }
+        }
+        else if (downwardSlopeWin(map, letter, length)){
+
+        }
+        else if (upwardSlopeWin(map, letter, length)){
+
+        }
+        return null;
+    }
 }
