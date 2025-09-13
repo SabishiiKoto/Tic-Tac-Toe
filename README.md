@@ -24,6 +24,7 @@ A GUI Tic-Tac-Toe game.
 2. Open terminal and go to the folder where the jar file is saved (using terminal commands)
 3. Run it with the below command (replace your path in):
 
+
 java --module-path "C:(where SDK is saved)\lib" --add-modules javafx.controls,javafx.fxml -jar Tic-Tac-Toe.jar
 
 - For example my command is:
