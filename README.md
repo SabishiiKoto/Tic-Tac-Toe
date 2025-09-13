@@ -10,6 +10,7 @@ A GUI Tic-Tac-Toe game.
   <img src = "https://github.com/SabishiiKoto/Tic-Tac-Toe/blob/master/src/main/resources/assets/Screenshot%202025-09-13%20120838.png?raw=true" width = "380" height = "320">
   <img src = "https://github.com/SabishiiKoto/Tic-Tac-Toe/blob/master/src/main/resources/assets/Screenshot%202025-09-13%20120759.png?raw=true" width = "380" height = "320">
 </p>
+
 ## Technologies Used
 - Language: Java
 - GUI Library: JavaFX built with SceneBuilder
