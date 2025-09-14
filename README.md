@@ -21,7 +21,7 @@ A GUI Tic-Tac-Toe game.
 2. Open the folder in your IDE.
 3. Run the 'HelloApplication.java' file.
 ### Option 2: Run JAR file
-1. Download the 'memoryMatchingGame.jar' file.
+1. Download the 'Tic-Tac-Toe.jar' file.
 2. Open terminal and go to the folder where the jar file is saved (using terminal commands)
 3. Run it with the below command (replace your path in):
 
