@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         String avatar = "/assets/tic-tac-toe.png"; // Credit: <a href="https://www.flaticon.com/free-icons/tic-tac-toe" title="tic tac toe icons">Tic tac toe icons created by Freepik - Flaticon</a>
         stage.getIcons().add(new Image(getClass().getResource(avatar).toExternalForm()));
+        stage.setResizable(false);
         stage.show();
     }
 

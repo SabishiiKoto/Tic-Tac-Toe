@@ -19,6 +19,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.util.Arrays;
+
 public class HelloController {
 
     @FXML
@@ -224,10 +226,10 @@ public class HelloController {
     @FXML
     void mediumModeTrigger(ActionEvent event) {
         level = 4;
-        length = 3;
+        length = 4;
         gridpaneMapping();
 
-        labelForError.setText("Hello! To win this level, get 3 identical images in a row/column/slope.");
+        labelForError.setText("Hello! To win this level, get 4 identical images in a row/column/slope.");
 
     }
 
@@ -457,7 +459,10 @@ public class HelloController {
                             imageViewForPlayer2.setImage(xImage);
                             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
                             pauseTransition.setOnFinished(event1 -> {
-                                int[] location = Functions.randomLocation(map);
+                                int[] location = Functions.blockingPlayer(map,'x', length);
+                                if (location == null){
+                                    location = Functions.randomLocation(map);
+                                }
 
                                 ImageView imageView1 = new ImageView(xImage);
                                 imageView1.setFitWidth(size);
@@ -510,8 +515,10 @@ public class HelloController {
 
                             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
                             pauseTransition.setOnFinished(event1 -> {
-                                int[] location = Functions.randomLocation(map);
-
+                                int[] location = Functions.blockingPlayer(map,'o', length);
+                                if (location == null){
+                                    location = Functions.randomLocation(map);
+                                }
                                 ImageView imageView1 = new ImageView(oImage);
                                 imageView1.setFitWidth(size);
                                 imageView1.setFitHeight(size);
